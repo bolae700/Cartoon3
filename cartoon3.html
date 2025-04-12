@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOLA EMAD | Cartoon Style</title>
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Bubblegum+Sans&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-blue: #1A237E;
+            --sky-blue: #64B5F6;
+            --pop-yellow: #FFF176;
+            --electric-pink: #FF4081;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: radial-gradient(circle at center, var(--deep-blue), #0D47A1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Floating Cartoon Elements */
+        .cartoon-cloud {
+            position: absolute;
+            width: 150px;
+            height: 60px;
+            background: white;
+            border-radius: 40px;
+            animation: float 6s infinite ease-in-out;
+            filter: drop-shadow(0 10px 8px rgba(0,0,0,0.2));
+        }
+
+        .cartoon-cloud:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+        .cartoon-cloud:nth-child(2) { top: 25%; right: 8%; animation-delay: 1.5s; }
+        .cartoon-cloud:nth-child(3) { bottom: 15%; left: 12%; animation-delay: 3s; }
+
+        /* Main Content */
+        .profile-card {
+            position: relative;
+            text-align: center;
+            padding: 3rem;
+            z-index: 2;
+        }
+
+        /* Name Design */
+        .bounce-name {
+            font-family: 'Chewy', cursive;
+            font-size: 6rem;
+            color: var(--pop-yellow);
+            text-shadow: 
+                4px 4px 0 var(--electric-pink),
+                8px 8px 0 rgba(0,0,0,0.2);
+            margin-bottom: 2rem;
+            transform: rotate(-5deg);
+            animation: nameBounce 2s infinite;
+        }
+
+        /* Profile Image */
+        .avatar-frame {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 8px solid var(--sky-blue);
+            box-shadow: 
+                0 0 40px var(--sky-blue),
+                inset 0 0 20px rgba(255,255,255,0.3);
+            margin: -60px auto 2rem;
+            overflow: hidden;
+            position: relative;
+            background: #fff;
+        }
+
+        .avatar-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Buttons Design */
+        .cartoon-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .fun-button {
+            background: var(--electric-pink);
+            border: none;
+            padding: 1.5rem 3rem;
+            border-radius: 50px;
+            font-family: 'Bubblegum Sans', cursive;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 
+                0 8px 0 var(--pop-yellow),
+                0 15px 20px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .fun-button:hover {
+            transform: translateY(4px);
+            box-shadow: 
+                0 4px 0 var(--pop-yellow),
+                0 8px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Cartoon Modal */
+        .cartoon-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: white;
+            border: 6px solid var(--pop-yellow);
+            border-radius: 30px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.3);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 1000;
+        }
+
+        .modal-active {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .modal-header {
+            font-family: 'Chewy', cursive;
+            color: var(--electric-pink);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: var(--electric-pink);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 0 var(--pop-yellow);
+            transition: 0.3s;
+        }
+
+        .close-button:hover {
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        /* Friends Grid */
+        .friends-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .friend-card {
+            background: var(--sky-blue);
+            padding: 1rem;
+            border-radius: 20px;
+            font-family: 'Bubblegum Sans';
+            color: white;
+            box-shadow: 0 5px 0 var(--deep-blue);
+        }
+
+        /* Music Player */
+        .music-player {
+            background: var(--pop-yellow);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes nameBounce {
+            0%, 100% { transform: rotate(-5deg) translateY(0); }
+            50% { transform: rotate(-5deg) translateY(-20px); }
+        }
+
+        /* Sparkle Effects */
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            animation: sparklePop 1.5s infinite;
+        }
+
+        @keyframes sparklePop {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Clouds -->
+    <div class="cartoon-cloud"></div>
+    <div class="cartoon-cloud"></div>
+    <div class="cartoon-cloud"></div>
+
+    <!-- Sparkle Effects -->
+    <div class="sparkle" style="top:20%; left:30%"></div>
+    <div class="sparkle" style="top:70%; right:25%"></div>
+
+    <!-- Main Content -->
+    <div class="profile-card">
+        <h1 class="bounce-name">BOLA EMAD</h1>
+        
+        <div class="avatar-frame">
+            <!-- Replace with your image path -->
+            <img src="https://i.ibb.co/dPFpGv9/Default-Cute-anime-boy-pray-3d-art-cartoon-blue-1-30826f36-54b1-49e4-b141-5caad93c4a2c-0.jpg" alt="Bola Emad">
+        </div>
+
+        <div class="cartoon-buttons">
+            <button class="fun-button" onclick="showModal('friends')">
+                🎪 Dream Squad
+            </button>
+            <button class="fun-button" onclick="showModal('music')">
+                🎮 Retro Beats
+            </button>
+        </div>
+    </div>
+
+    <!-- Friends Modal -->
+    <div class="cartoon-modal" id="friendsModal">
+        <button class="close-button" onclick="closeModal()">✕</button>
+        <h2 class="modal-header">The Dream Team! 🌟</h2>
+        <div class="friends-grid">
+            <div class="friend-card">MARK</div>
+            <div class="friend-card">DOLLY</div>
+            <div class="friend-card">RAMIZ</div>
+            <div class="friend-card">LEADER</div>
+        </div>
+    </div>
+
+    <!-- Music Modal -->
+    <div class="cartoon-modal" id="musicModal">
+        <button class="close-button" onclick="closeModal()">✕</button>
+        <h2 class="modal-header">8-Bit Vibes! 🎧</h2>
+        <div class="music-player">
+            <iframe 
+                width="100%" 
+                height="200" 
+                src="https://www.youtube.com/embed/377qgUZ_EmQ" 
+                frameborder="0" 
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+
+    <script>
+        function showModal(type) {
+            document.getElementById(type + 'Modal').classList.add('modal-active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.querySelectorAll('.cartoon-modal').forEach(modal => {
+                modal.classList.remove('modal-active');
+            });
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('cartoon-modal')) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
